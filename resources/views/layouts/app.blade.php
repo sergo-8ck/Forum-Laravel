@@ -36,12 +36,22 @@
         <!-- Left Side Of Navbar -->
 
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a href="/threads" class="nav-link active">All Threads</a>
+          {{--<li class="nav-item">--}}
+            {{--<a href="/threads" class="nav-link active">All Threads</a>--}}
+          {{--</li>--}}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+               aria-haspopup="true" aria-expanded="false">Темы<span class="caret"></span></a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="/threads">Все Темы</a>
+              @if(auth()->check())
+                <a class="dropdown-item" href="/threads?by={{ auth()->user()->name }}">Мои Темы</a>
+              @endif
+            </div>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-               aria-haspopup="true" aria-expanded="false">Channels <span class="caret"></span></a>
+               aria-haspopup="true" aria-expanded="false">Категории <span class="caret"></span></a>
             <div class="dropdown-menu">
               @foreach ($channels as $channel)
                 <a class="dropdown-item" href="/threads/{{ $channel->code }}">{{ $channel->name }}</a>
@@ -49,7 +59,7 @@
             </div>
           </li>
           <li class="nav-item">
-            <a href="/threads/create" class="nav-link active">New Threads</a>
+            <a href="/threads/create" class="nav-link">Создать тему</a>
           </li>
         </ul>
         <!-- Right Side Of Navbar -->
