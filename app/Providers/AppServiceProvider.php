@@ -3,37 +3,39 @@
 namespace App\Providers;
 
 use App\Channel;
+use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\View\View;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        Schema::defaultStringLength(191);
+  /**
+   * Bootstrap any application services.
+   *
+   * @return void
+   */
+  public function boot()
+  {
+    Schema::defaultStringLength(191);
 
+    // Localization Carbon
+    \Carbon\Carbon::setLocale(config('app.locale'));
 
-//        \View::share('channels', Channel::all());
+    // channels
+    \View::composer('*', function ($view) {
+      $view->with('channels', Channel::all());
+    });
 
-        \View::composer('*', function($view){
-          $view->with('channels', Channel::all());
-        });
+  }
 
-    }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
-    }
+  /**
+   * Register any application services.
+   *
+   * @return void
+   */
+  public function register()
+  {
+    //
+  }
 }

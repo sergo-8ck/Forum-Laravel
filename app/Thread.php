@@ -8,6 +8,15 @@ class Thread extends Model
 {
   protected $guarded = []; // https://youtu.be/A32Bw-FQMrU?t=721
 
+  protected static function boot()
+  {
+    parent::boot();
+
+    static::addGlobalScope('replyCount', function ($builder){
+      $builder->withCount('replies');
+    });
+  }
+
   function path()
   {
     return "/threads/{$this->channel->code}/{$this->id}";
@@ -32,4 +41,9 @@ class Thread extends Model
   {
     return $this->replies()->create($reply);
   }
+  public function scopeFilter($query, $filters)
+  {
+    return $filters->apply($query);
+  }
+
 }

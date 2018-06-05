@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
@@ -14,32 +14,36 @@
                         </article>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="row justify-content-center py-4">
-            <div class="col-md-8 col-md-offset-2">
-                @foreach($thread->replies as $reply)
+
+                @foreach($replies as $reply)
                     @include('thread.reply')
                 @endforeach
+
+                {{$replies->links()}}
+
+                @if(auth()->check())
+                    <h3>Ответить</h3>
+                    <form method="POST" action="{{ route('post.reply',[$thread->channel->id, $thread->id]) }}">
+                        {{csrf_field()}}
+                        <div class="form-group">
+                            <label for=""></label>
+                            <textarea class="form-control" name="body" id="" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Отправить</button>
+                    </form>
+                @else
+                    <p class="text-center">Please <a href="{{ route('login') }}">sign in</a> to participate in this discussion.</p>
+                @endif
             </div>
-        </div>
-        @if(auth()->check())
-        <div class="row justify-content-center py-4">
-            <div class="col-md-8 col-md-offset-2">
-                <h3>Ответить</h3>
-                <form method="POST" action="{{ route('post.reply',[$thread->channel->id, $thread->id]) }}">
-                    {{csrf_field()}}
-                    <div class="form-group">
-                        <label for=""></label>
-                        <textarea class="form-control" name="body" id="" rows="3"></textarea>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        Эта тема была опубликована {{ $thread->created_at->diffForHumans() }} автор -
+                        <a href="#">{{ $thread->creator->name }}</a>, и имеет ответов - {{ $thread->replies_count }}
                     </div>
-                    <button type="submit" class="btn btn-primary">Отправить</button>
-                </form>
+                </div>
             </div>
         </div>
-        @else
-            <p class="text-center">Please <a href="{{ route('login') }}">sign in</a> to participate in this discussion.</p>
-        @endif
     </div>
 @endsection

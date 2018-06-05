@@ -55,13 +55,34 @@ class ThreadTest extends TestCase
   {
     $this->signIn(create('App\User', ['name' => 'Sergo']));
 
-    $threadBySergo = create('App\Thread', ['user_id'=>auth()->id()]);
+    $threadBySergo = create('App\Thread', ['user_id' => auth()->id()]);
     $threadNotBySergo = create('App\Thread');
 
     $this->get('threads?by=Sergo')
       ->assertSee($threadBySergo->title)
       ->assertDontSee($threadNotBySergo->title);
+  }
+
+  function test_a_user_can_filter_threads_by_popularity()
+  {
+    //Given we hae three threads
 
 
+
+    //With 2 replies, 3 replies, and 0 replies, respectively.
+    $threadWithTwoReplies = create('App\Thread');
+    create('App\Reply', ['thread_id' => $threadWithTwoReplies->id], 2);
+
+    $threadWithThreeReplies = create('App\Thread');
+    create('App\Reply', ['thread_id' => $threadWithThreeReplies->id], 3);
+
+    $threadWithNoReplies = $this->thread;
+
+
+    //When I filter all threads by pupularity
+    $response = $this->getJson('threads?popular=1')->json();
+
+    //Then they should be returned from most replies to least.
+    $this->assertEquals([3, 2 , 0], array_column($response, 'replies_count'));
   }
 }

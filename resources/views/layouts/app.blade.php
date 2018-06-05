@@ -19,6 +19,21 @@
 
   <!-- Styles -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+  <style>
+    body {
+      padding-bottom: 100px;
+    }
+
+    .level {
+      display: flex;
+      align-items: center;
+    }
+
+    .flex {
+      flex: 1;
+    }
+  </style>
 </head>
 <body>
 <div id="app">
@@ -37,16 +52,18 @@
 
         <ul class="navbar-nav mr-auto">
           {{--<li class="nav-item">--}}
-            {{--<a href="/threads" class="nav-link active">All Threads</a>--}}
+          {{--<a href="/threads" class="nav-link active">All Threads</a>--}}
           {{--</li>--}}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                aria-haspopup="true" aria-expanded="false">Темы<span class="caret"></span></a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="/threads">Все Темы</a>
+              <a class="dropdown-item" href="/threads">Все Темы</a>
               @if(auth()->check())
                 <a class="dropdown-item" href="/threads?by={{ auth()->user()->name }}">Мои Темы</a>
               @endif
+
+              <a class="dropdown-item" href="/threads?popular=1">Популярные</a>
             </div>
           </li>
           <li class="nav-item dropdown">
