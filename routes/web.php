@@ -30,6 +30,9 @@ Route::post('/threads/{channel}/{thread}/replies', 'ReplyController@store')
     ->name('post.reply')
     ->middleware('auth'); //сохранить
 
+Route::post('/replies/{reply}/favorites', 'FavoritesController@store');
+
+
 
 Auth::routes();
 

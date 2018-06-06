@@ -47,3 +47,10 @@
     </div>
   </div>
 @endsection
+
+@section('js')
+  <script>
+      $('textarea').ckeditor();
+      // $('.textarea').ckeditor(); // if class is prefered.
+  </script>
+@endsection
