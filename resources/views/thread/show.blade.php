@@ -5,12 +5,28 @@
     <div class="row">
       <div class="col-md-8">
         <div class="card">
+          <div class="card-header">
+            <div class="level">
+              <div class="flex">
+                <h2 class="card-title">{{ $thread->title }}</h2>
+              </div>
+              @can ('update', $thread)
+                <form action="{{ $thread->path() }}" method="POST">
+                  {{ csrf_field() }}
+                  {{ method_field('DELETE') }}
+
+                  <button type="submit" class="btn btn-link">Удалить тему</button>
+                </form>
+              @endcan
+            </div>
+
+          </div>
           <div class="card-body">
             <article>
-              <h2 class="card-title">{{ $thread->title }}</h2>
+
               <p class="card-text">{!! $thread->body !!}</p>
-              <p class="card-text"><a href="{{ route('profile', $thread->creator) }}">{{ $thread->creator->name }}</a>,
-                <small class="text-muted">{{ $thread->created_at->diffForHumans() }}</small>
+              <p class="card-text">
+                <small class="text-muted"><a href="{{ route('profile', $thread->creator) }}">{{ $thread->creator->name }}</a> - {{ $thread->created_at->diffForHumans() }}</small>
               </p>
 
             </article>

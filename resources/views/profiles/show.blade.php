@@ -19,7 +19,7 @@
             <div class="card-header bg-transparent">
               <div class="level">
            <span class="flex">
-                <a href="#">{{ $thread->creator->name }}</a> добавил:
+                <a href="{{ route('profile', $thread->creator) }}">{{ $thread->creator->name }}</a> добавил:
              <a href="{{ $thread->path() }}">{{ $thread->title }}</a>
            </span>
 

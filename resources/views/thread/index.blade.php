@@ -4,7 +4,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8">
-        @foreach($threads as $thread)
+        @forelse($threads as $thread)
           <div class="card my-4">
             <div class="card-header bg-transparent">
               <div class="level">
@@ -24,7 +24,9 @@
               </article>
             </div>
           </div>
-        @endforeach
+        @empty
+          <p>Тут не создано еще ни одной темы.</p>
+        @endforelse
       </div>
     </div>
   </div>
