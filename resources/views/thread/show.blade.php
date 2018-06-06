@@ -8,8 +8,8 @@
           <div class="card-body">
             <article>
               <h2 class="card-title">{{ $thread->title }}</h2>
-              <p class="card-text">{{ $thread->body }}</p>
-              <p class="card-text"><a href="">{{ $thread->creator->name }}</a>,
+              <p class="card-text">{!! $thread->body !!}</p>
+              <p class="card-text"><a href="{{ route('profile', $thread->creator) }}">{{ $thread->creator->name }}</a>,
                 <small class="text-muted">{{ $thread->created_at->diffForHumans() }}</small>
               </p>
 
