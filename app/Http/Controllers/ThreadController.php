@@ -64,7 +64,9 @@ class ThreadController extends Controller
       'channel_id' => request('channel_id'),
       'body' => request('body'),
     ]);
-    return redirect($thread->path());
+
+    return redirect($thread->path())
+      ->with('flash', 'Ваша тема опубликована!');
   }
 
   /**

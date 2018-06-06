@@ -46,6 +46,8 @@ if (token) {
 
 // import Echo from 'laravel-echo'
 
+window.events = new Vue();
+
 // window.Pusher = require('pusher-js');
 
 // window.Echo = new Echo({
