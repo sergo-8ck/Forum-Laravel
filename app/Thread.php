@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
 {
+  use RecordsActivity;
+
   protected $guarded = []; // https://youtu.be/A32Bw-FQMrU?t=721
 
   protected $with = ['creator', 'channel'];
@@ -25,6 +27,8 @@ class Thread extends Model
       $thread->replies()->delete();
     });
   }
+
+
 
   /**
    * @return string
