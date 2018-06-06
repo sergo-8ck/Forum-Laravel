@@ -80,13 +80,17 @@ class ReplyController extends Controller
   }
 
   /**
-   * Remove the specified resource from storage.
+   * Delete the given reply.
    *
-   * @param  \App\Reply $reply
-   * @return \Illuminate\Http\Response
+   * @param  Reply $reply
+   * @return \Illuminate\Http\RedirectResponse
    */
   public function destroy(Reply $reply)
   {
-    //
+    $this->authorize('update', $reply);
+
+    $reply->delete();
+
+    return back();
   }
 }
