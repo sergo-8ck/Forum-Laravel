@@ -48,6 +48,8 @@
 
         components: {Favorite},
 
+        components: { Favorite },
+
         data() {
             return {
                 editing: false,
