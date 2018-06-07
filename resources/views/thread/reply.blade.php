@@ -26,8 +26,8 @@
                     <textarea class="form-control" v-model="body"></textarea>
                 </div>
 
-                <button class="btn btn-xs btn-primary" @click="update">Сохранить</button>
-                <button class="btn btn-xs btn-link" @click="editing = false">Выход</button>
+                <button class="btn btn-sm btn-primary" @click="update">Сохранить</button>
+                <button class="btn btn-sm btn-link" @click="editing = false">Выход</button>
             </div>
 
             <div v-else v-text="body"></div>
@@ -35,14 +35,9 @@
 
         @can ('update', $reply)
             <div class="card-footer level">
-                <button class="btn btn-xs mr-1" @click="editing = true">Редактировать</button>
+                <button class="btn btn-sm mr-1" @click="editing = true">Редактировать</button>
 
-                <form method="POST" action="/replies/{{ $reply->id }}">
-                    {{ csrf_field() }}
-                    {{ method_field('DELETE') }}
-
-                    <button type="submit" class="btn btn-danger btn-xs">Удалить</button>
-                </form>
+                <button class="btn btn-sm btn-danger mr-1" @click="destroy">Удалить</button>
             </div>
         @endcan
     </div>
