@@ -42,7 +42,7 @@ class ReplyController extends Controller
       'body' => request('body'),
       'user_id' => auth()->id()
     ]);
-    return back()->with('flash', 'Ваш ответ добавлен.');
+    return back()->with('flash', 'Ваш ответ добавлен!');
   }
 
   /**
